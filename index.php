@@ -6,6 +6,12 @@ require_once(__DIR__ . '/src/classes/app.php');
 
 $app = new app;
 
+// TESTS
+require_once(__DIR__ . '/src/classes/database/bookings.php');
+$bookings = new bookings;
+
+//$bookings->create('low', '20230101', '20230103', 1);
+
 
 ?>
 
