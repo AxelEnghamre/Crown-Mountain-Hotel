@@ -34,7 +34,28 @@ class bookings extends database
           $stmt->bindParam('input_order_id', $orderId, PDO::PARAM_INT);
           $stmt->execute();
      }
+
      // update
+     public function update(int $id, string $room, string $checkIn, string $checkOut, int $orderId): void
+     {
+          $db = $this->connect();
+
+          $query = "UPDATE bookings SET
+                    room = :input_room,
+                    check_in = :input_check_in,
+                    check_out = :input_check_out,
+                    order_id = :input_order_id
+                    WHERE id = :input_id
+          ";
+
+          $stmt = $db->prepare($query);
+          $stmt->bindParam('input_room', $room, PDO::PARAM_STR);
+          $stmt->bindParam('input_check_in', $checkIn, PDO::PARAM_STR);
+          $stmt->bindParam('input_check_out', $checkOut, PDO::PARAM_STR);
+          $stmt->bindParam('input_order_id', $orderId, PDO::PARAM_INT);
+          $stmt->bindParam('input_id', $id, PDO::PARAM_INT);
+          $stmt->execute();
+     }
 
      // delete
 }

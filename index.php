@@ -12,6 +12,8 @@ $bookings = new bookings;
 
 //$bookings->create('low', '20230101', '20230103', 1);
 
+//$bookings->update(1, 'mid', '20230101', '20230103', 1);
+
 
 ?>
 
