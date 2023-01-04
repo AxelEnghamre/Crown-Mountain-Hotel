@@ -14,6 +14,8 @@ $bookings = new bookings;
 
 //$bookings->update(1, 'mid', '20230101', '20230103', 1);
 
+//$bookings->delete(1);
+
 
 ?>
 

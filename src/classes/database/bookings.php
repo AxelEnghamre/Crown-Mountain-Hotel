@@ -58,4 +58,14 @@ class bookings extends database
      }
 
      // delete
+     public function delete(int $id): void
+     {
+          $db = $this->connect();
+
+          $query = "DELETE FROM bookings WHERE id = :input_id";
+
+          $stmt = $db->prepare($query);
+          $stmt->bindParam('input_id', $id, PDO::PARAM_INT);
+          $stmt->execute();
+     }
 }
