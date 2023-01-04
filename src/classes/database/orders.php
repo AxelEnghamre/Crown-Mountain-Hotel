@@ -74,7 +74,7 @@ class orders extends database
           $stmt->execute();
      }
 
-     // get all items
+     // get all orders
      public function getAll(): array
      {
           $db = $this->connect();
@@ -94,7 +94,7 @@ class orders extends database
           return [];
      }
 
-     // get an item
+     // get an order
      public function get(int $id): array
      {
           $db = $this->connect();
