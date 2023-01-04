@@ -16,6 +16,14 @@ $bookings = new bookings;
 
 //$bookings->delete(1);
 
+//$low = $bookings->allRoomBookings('low');
+
+//var_dump($low);
+
+// $room = $bookings->get(1);
+
+// var_dump($room);
+
 
 ?>
 

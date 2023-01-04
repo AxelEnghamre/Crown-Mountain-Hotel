@@ -68,4 +68,46 @@ class bookings extends database
           $stmt->bindParam('input_id', $id, PDO::PARAM_INT);
           $stmt->execute();
      }
+
+     // get all bookings based on room type
+     public function allRoomBookings(string $room): array
+     {
+          $db = $this->connect();
+
+          $query = "SELECT * FROM bookings WHERE room = :input_room";
+
+          $stmt = $db->prepare($query);
+          $stmt->bindParam('input_room', $room, PDO::PARAM_STR);
+          $stmt->execute();
+
+
+          $response = $stmt->fetchAll();
+
+          if (isset($response[0])) {
+               return $response;
+          }
+
+          return [];
+     }
+
+     // get a booking
+     public function get(int $id): array
+     {
+          $db = $this->connect();
+
+          $query = "SELECT * FROM bookings WHERE id = :input_id";
+
+          $stmt = $db->prepare($query);
+          $stmt->bindParam('input_id', $id, PDO::PARAM_INT);
+          $stmt->execute();
+
+
+          $response = $stmt->fetch();
+
+          if (isset($response['id'])) {
+               return $response;
+          }
+
+          return [];
+     }
 }
