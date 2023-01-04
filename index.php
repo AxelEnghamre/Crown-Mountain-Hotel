@@ -6,24 +6,6 @@ require_once(__DIR__ . '/src/classes/app.php');
 
 $app = new app;
 
-// TESTS
-require_once(__DIR__ . '/src/classes/database/bookings.php');
-$bookings = new bookings;
-
-//$bookings->create('low', '20230101', '20230103', 1);
-
-//$bookings->update(1, 'mid', '20230101', '20230103', 1);
-
-//$bookings->delete(1);
-
-//$low = $bookings->allRoomBookings('low');
-
-//var_dump($low);
-
-// $room = $bookings->get(1);
-
-// var_dump($room);
-
 
 ?>
 
