@@ -6,6 +6,24 @@ require_once(__DIR__ . '/src/classes/app.php');
 
 $app = new app;
 
+use benhall14\phpCalendar\Calendar as Calendar;
+
+$calendar = new Calendar;
+$calendar->stylesheet();
+$calendar->useMondayStartingDate();
+$calendar->addEvent(
+     '2023-01-01',
+     '2023-01-05',
+     '',
+     true
+);
+$calendar->addEvent(
+     '2023-01-10',
+     '2023-01-12',
+     '',
+     true
+);
+
 
 ?>
 
@@ -31,9 +49,13 @@ $app = new app;
                <option value="standard">standard <?= $_ENV['STANDARD_ROOM_PRICE'] ?>$</option>
                <option value="luxury">luxury <?= $_ENV['LUXURY_ROOM_PRICE'] ?>$</option>
           </select>
-          <input type="hidden" name="items[]">
+          <input type="checkbox" name="items[]" id="breakfust" value="breakfust">
           <input type="submit" value="Make a reservation">
      </form>
+
+     <?php
+     echo $calendar->draw('2023-01-01');
+     ?>
 </body>
 
 </html>

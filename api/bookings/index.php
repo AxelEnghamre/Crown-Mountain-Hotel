@@ -18,13 +18,19 @@ $tableOrders = new orders;
 $tableOrdersItems = new ordersItems;
 
 // check if form data exists
-if (isset($_POST['checkIn'], $_POST['checkOut'], $_POST['transferCode'], $_POST['userName'], $_POST['room'], $_POST['items'])) {
+if (isset($_POST['checkIn'], $_POST['checkOut'], $_POST['transferCode'], $_POST['userName'], $_POST['room'])) {
      $checkIn = filter_var($_POST['checkIn'], FILTER_SANITIZE_SPECIAL_CHARS);
      $checkOut = filter_var($_POST['checkOut'], FILTER_SANITIZE_SPECIAL_CHARS);
      $transferCode = filter_var($_POST['transferCode'], FILTER_SANITIZE_SPECIAL_CHARS);
      $userName = filter_var($_POST['userName'], FILTER_SANITIZE_SPECIAL_CHARS);
      $room = filter_var($_POST['room'], FILTER_SANITIZE_SPECIAL_CHARS);
-     $items = filter_var_array($_POST['items']);
+     if (isset($_POST['items'])) {
+          $items = filter_var_array($_POST['items']);
+     } else {
+          $items = false;
+     }
+
+     var_dump($checkIn);
      echo json_encode(['status' => 200]);
      exit;
 } else {
