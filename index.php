@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 require_once(__DIR__ . '/src/classes/app.php');
 require_once(__DIR__ . '/src/classes/database/items.php');
+require_once(__DIR__ . '/src/classes/database/bookings.php');
 
 $app = new app;
 $tableItems = new items;
+$tableBookings = new bookings;
 
 use benhall14\phpCalendar\Calendar as Calendar;
 
-$calendar = new Calendar;
-$calendar->stylesheet();
-$calendar->useMondayStartingDate();
-$calendar->addEvent(
-     '2023-01-01',
-     '2023-01-05',
-     '',
-     true
-);
-$calendar->addEvent(
-     '2023-01-10',
-     '2023-01-12',
-     '',
-     true
-);
+$bugetBookings = $tableBookings->allRoomBookings('buget');
+
+$bugetCalendar = new Calendar;
+$bugetCalendar->stylesheet();
+$bugetCalendar->useMondayStartingDate();
+foreach ($bugetBookings as $booking) {
+     $bugetCalendar->addEvent(
+          $booking['check_in'],
+          $booking['check_out'],
+          '',
+          true
+     );
+}
 
 
 $items = $tableItems->getAll();
@@ -63,7 +63,7 @@ $items = $tableItems->getAll();
      </form>
 
      <?php
-     echo $calendar->draw('2023-01-01');
+     echo $bugetCalendar->draw('2023-01-01');
      ?>
 </body>
 
