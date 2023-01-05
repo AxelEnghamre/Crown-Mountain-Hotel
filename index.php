@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 require_once(__DIR__ . '/src/classes/app.php');
+require_once(__DIR__ . '/src/classes/database/items.php');
 
 $app = new app;
+$tableItems = new items;
 
 use benhall14\phpCalendar\Calendar as Calendar;
 
@@ -25,6 +27,7 @@ $calendar->addEvent(
 );
 
 
+$items = $tableItems->getAll();
 ?>
 
 
@@ -49,7 +52,13 @@ $calendar->addEvent(
                <option value="standard">standard <?= $_ENV['STANDARD_ROOM_PRICE'] ?>$</option>
                <option value="luxury">luxury <?= $_ENV['LUXURY_ROOM_PRICE'] ?>$</option>
           </select>
-          <input type="checkbox" name="items[]" id="breakfust" value="breakfust">
+
+          <?php
+          foreach ($items as $item) {
+               echo "<input type='checkbox' name='items[]' id='$item[name]' value='$item[id]'>";
+               echo "<label for='$item[name]'>$item[name] $item[price]$</label>";
+          }
+          ?>
           <input type="submit" value="Make a reservation">
      </form>
 

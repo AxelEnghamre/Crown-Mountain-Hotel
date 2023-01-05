@@ -30,7 +30,7 @@ if (isset($_POST['checkIn'], $_POST['checkOut'], $_POST['transferCode'], $_POST[
           $items = false;
      }
 
-     var_dump($checkIn);
+     var_dump($items);
      echo json_encode(['status' => 200]);
      exit;
 } else {
