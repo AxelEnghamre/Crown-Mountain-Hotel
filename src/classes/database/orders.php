@@ -120,14 +120,12 @@ class orders extends database
           $db = $this->connect();
 
           $query = "CREATE TABLE orders (
-               id INT AUTO_INCREMENT,
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
                user_name VARCHAR(40),
                transfer_code VARCHAR(100),
-               gross_price INT,
-               discount INT,
-               net_price INT,
-
-               PRIMARY KEY (id)
+               gross_price INTEGER,
+               discount INTEGER,
+               net_price INTEGER
           )
           ";
 

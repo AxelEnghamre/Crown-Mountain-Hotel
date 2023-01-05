@@ -116,13 +116,12 @@ class bookings extends database
           $db = $this->connect();
 
           $query = "CREATE TABLE bookings (
-               id INT AUTO_INCREMENT,
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
                room VARCHAR(10),
-               order_id INT,
-               check_in DATE,
-               check_out DATE,
+               order_id INTEGER,
+               check_in VARCHAR(50),
+               check_out VARCHAR(50),
 
-               PRIMARY KEY (id),
                FOREIGN KEY (order_id) REFERENCES orders(id)
           )
           ";

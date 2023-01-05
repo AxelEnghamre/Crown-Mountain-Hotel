@@ -125,11 +125,10 @@ class ordersItems extends database
           $db = $this->connect();
 
           $query = "CREATE TABLE orders_items (
-               id INT AUTO_INCREMENT,
-               order_id INT,
-               item_id INT,
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
+               order_id INTEGER,
+               item_id INTEGER,
 
-               PRIMARY KEY (id),
                FOREIGN KEY (order_id) REFERENCES orders(id),
                FOREIGN KEY (item_id) REFERENCES items(id)
           )

@@ -105,11 +105,9 @@ class items extends database
           $db = $this->connect();
 
           $query = "CREATE TABLE items (
-               id INT AUTO_INCREMENT,
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
                name VARCHAR(50),
-               price INT,
-
-               PRIMARY KEY (id)
+               price INTEGER
           )
           ";
 
