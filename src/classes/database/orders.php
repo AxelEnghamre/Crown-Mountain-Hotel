@@ -125,7 +125,7 @@ class orders extends database
                transfer_code VARCHAR(100),
                gross_price INT,
                discount INT,
-               net_price INT
+               net_price INT,
 
                PRIMARY KEY (id)
           )

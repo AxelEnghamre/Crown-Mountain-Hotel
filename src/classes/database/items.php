@@ -107,7 +107,7 @@ class items extends database
           $query = "CREATE TABLE items (
                id INT AUTO_INCREMENT,
                name VARCHAR(50),
-               price INT
+               price INT,
 
                PRIMARY KEY (id)
           )
