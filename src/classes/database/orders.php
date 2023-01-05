@@ -7,7 +7,7 @@ require_once(__DIR__ . '/../database.php');
 class orders extends database
 {
      // create
-     public function create(string $userName, string $transferCode, float $grossPrice, float $discount, float $netPrice): void
+     public function create(string $userName, string $transferCode, int $grossPrice, int $discount, int $netPrice): void
      {
           $db = $this->connect();
 
@@ -32,14 +32,14 @@ class orders extends database
           $stmt = $db->prepare($query);
           $stmt->bindParam('input_user_name', $userName, PDO::PARAM_STR);
           $stmt->bindParam('input_transfer_code', $transferCode, PDO::PARAM_STR);
-          $stmt->bindParam('input_gross_price', $grossPrice, PDO::PARAM_STR);
-          $stmt->bindParam('input_discount', $discount, PDO::PARAM_STR);
-          $stmt->bindParam('input_net_price', $netPrice, PDO::PARAM_STR);
+          $stmt->bindParam('input_gross_price', $grossPrice, PDO::PARAM_INT);
+          $stmt->bindParam('input_discount', $discount, PDO::PARAM_INT);
+          $stmt->bindParam('input_net_price', $netPrice, PDO::PARAM_INT);
           $stmt->execute();
      }
 
      // update
-     public function update(int $id, string $userName, string $transferCode, float $grossPrice, float $discount, float $netPrice): void
+     public function update(int $id, string $userName, string $transferCode, int $grossPrice, int $discount, int $netPrice): void
      {
           $db = $this->connect();
 
@@ -55,9 +55,9 @@ class orders extends database
           $stmt = $db->prepare($query);
           $stmt->bindParam('input_user_name', $userName, PDO::PARAM_STR);
           $stmt->bindParam('input_transfer_code', $transferCode, PDO::PARAM_STR);
-          $stmt->bindParam('input_gross_price', $grossPrice, PDO::PARAM_STR);
-          $stmt->bindParam('input_discount', $discount, PDO::PARAM_STR);
-          $stmt->bindParam('input_net_price', $netPrice, PDO::PARAM_STR);
+          $stmt->bindParam('input_gross_price', $grossPrice, PDO::PARAM_INT);
+          $stmt->bindParam('input_discount', $discount, PDO::PARAM_INT);
+          $stmt->bindParam('input_net_price', $netPrice, PDO::PARAM_INT);
           $stmt->bindParam('input_id', $id, PDO::PARAM_INT);
           $stmt->execute();
      }
@@ -113,5 +113,24 @@ class orders extends database
           }
 
           return [];
+     }
+
+     public function setup(): void
+     {
+          $db = $this->connect();
+
+          $query = "CREATE TABLE orders (
+               id INT AUTO_INCREMENT,
+               user_name VARCHAR(40),
+               transfer_code VARCHAR(100),
+               gross_price INT,
+               discount INT,
+               net_price INT
+
+               PRIMARY KEY (id)
+          )
+          ";
+
+          $db->query($query);
      }
 }

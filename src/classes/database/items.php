@@ -99,4 +99,20 @@ class items extends database
 
           return [];
      }
+
+     public function setup(): void
+     {
+          $db = $this->connect();
+
+          $query = "CREATE TABLE items (
+               id INT AUTO_INCREMENT,
+               name VARCHAR(50),
+               price INT
+
+               PRIMARY KEY (id)
+          )
+          ";
+
+          $db->query($query);
+     }
 }

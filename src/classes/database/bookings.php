@@ -110,4 +110,23 @@ class bookings extends database
 
           return [];
      }
+
+     public function setup(): void
+     {
+          $db = $this->connect();
+
+          $query = "CREATE TABLE bookings (
+               id INT AUTO_INCREMENT,
+               room VARCHAR(10),
+               order_id INT,
+               check_in DATE,
+               check_out DATE,
+
+               PRIMARY KEY (id),
+               FOREIGN KEY (order_id) REFERENCES orders(id)
+          )
+          ";
+
+          $db->query($query);
+     }
 }

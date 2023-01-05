@@ -119,4 +119,22 @@ class ordersItems extends database
 
           return [];
      }
+
+     public function setup(): void
+     {
+          $db = $this->connect();
+
+          $query = "CREATE TABLE orders_items (
+               id INT AUTO_INCREMENT,
+               order_id INT,
+               item_id INT
+
+               PRIMARY KEY (id),
+               FOREIGN KEY (order_id) REFERENCES orders(id),
+               FOREIGN KEY (item_id) REFERENCES items(id)
+          )
+          ";
+
+          $db->query($query);
+     }
 }
