@@ -7,7 +7,7 @@ require_once(__DIR__ . '/../database.php');
 class orders extends database
 {
      // create
-     public function create(string $userName, string $transferCode, int $grossPrice, int $discount, int $netPrice): void
+     public function create(string $userName, string $transferCode, int $grossPrice, int $discount, int $netPrice): int
      {
           $db = $this->connect();
 
@@ -35,7 +35,13 @@ class orders extends database
           $stmt->bindParam('input_gross_price', $grossPrice, PDO::PARAM_INT);
           $stmt->bindParam('input_discount', $discount, PDO::PARAM_INT);
           $stmt->bindParam('input_net_price', $netPrice, PDO::PARAM_INT);
-          $stmt->execute();
+
+          if ($stmt->execute() === TRUE) {
+               $id = intval($db->lastInsertId());
+               return $id;
+          }
+
+          return 0;
      }
 
      // update
@@ -75,7 +81,7 @@ class orders extends database
      }
 
      // get all orders
-     public function getAll(): array
+     public function getAll(): array | bool
      {
           $db = $this->connect();
 
@@ -91,11 +97,11 @@ class orders extends database
                return $response;
           }
 
-          return [];
+          return false;
      }
 
      // get an order
-     public function get(int $id): array
+     public function get(int $id): array | bool
      {
           $db = $this->connect();
 
@@ -112,7 +118,7 @@ class orders extends database
                return $response;
           }
 
-          return [];
+          return false;
      }
 
      public function setup(): void

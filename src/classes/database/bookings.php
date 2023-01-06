@@ -7,7 +7,7 @@ require_once(__DIR__ . '/../database.php');
 class bookings extends database
 {
      // create
-     public function create(string $room, string $checkIn, string $checkOut, int $orderId): void
+     public function create(string $room, string $checkIn, string $checkOut, int $orderId): int
      {
           $db = $this->connect();
 
@@ -32,7 +32,14 @@ class bookings extends database
           $stmt->bindParam('input_check_in', $checkIn, PDO::PARAM_STR);
           $stmt->bindParam('input_check_out', $checkOut, PDO::PARAM_STR);
           $stmt->bindParam('input_order_id', $orderId, PDO::PARAM_INT);
-          $stmt->execute();
+
+
+          if ($stmt->execute() === TRUE) {
+               $id = intval($db->lastInsertId());
+               return $id;
+          }
+
+          return 0;
      }
 
      // update
@@ -70,7 +77,7 @@ class bookings extends database
      }
 
      // get all bookings based on room type
-     public function allRoomBookings(string $room): array
+     public function allRoomBookings(string $room): array | bool
      {
           $db = $this->connect();
 
@@ -87,11 +94,11 @@ class bookings extends database
                return $response;
           }
 
-          return [];
+          return false;
      }
 
      // get a booking
-     public function get(int $id): array
+     public function get(int $id): array | bool
      {
           $db = $this->connect();
 
@@ -108,7 +115,7 @@ class bookings extends database
                return $response;
           }
 
-          return [];
+          return false;
      }
 
      public function setup(): void

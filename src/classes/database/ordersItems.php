@@ -7,7 +7,7 @@ require_once(__DIR__ . '/../database.php');
 class ordersItems extends database
 {
      // create
-     public function create(int $orderId, int $itemId): void
+     public function create(int $orderId, int $itemId): int
      {
           $db = $this->connect();
 
@@ -26,7 +26,13 @@ class ordersItems extends database
           $stmt = $db->prepare($query);
           $stmt->bindParam('input_order_id', $orderId, PDO::PARAM_INT);
           $stmt->bindParam('input_item_id', $itemId, PDO::PARAM_INT);
-          $stmt->execute();
+
+          if ($stmt->execute() === TRUE) {
+               $id = intval($db->lastInsertId());
+               return $id;
+          }
+
+          return 0;
      }
 
      // update
@@ -60,7 +66,7 @@ class ordersItems extends database
      }
 
      // get all items
-     public function getAll(): array
+     public function getAll(): array | bool
      {
           $db = $this->connect();
 
@@ -76,10 +82,10 @@ class ordersItems extends database
                return $response;
           }
 
-          return [];
+          return false;
      }
 
-     public function allInOrder(int $orderId): array
+     public function allInOrder(int $orderId): array | bool
      {
           $db = $this->connect();
 
@@ -96,11 +102,11 @@ class ordersItems extends database
                return $response;
           }
 
-          return [];
+          return false;
      }
 
      // get an item
-     public function get(int $id): array
+     public function get(int $id): array | bool
      {
           $db = $this->connect();
 
@@ -117,7 +123,7 @@ class ordersItems extends database
                return $response;
           }
 
-          return [];
+          return false;
      }
 
      public function setup(): void

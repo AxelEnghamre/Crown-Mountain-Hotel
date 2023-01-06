@@ -7,7 +7,7 @@ require_once(__DIR__ . '/../database.php');
 class items extends database
 {
      // create
-     public function create(string $name, int $price): void
+     public function create(string $name, int $price): int
      {
           $db = $this->connect();
 
@@ -26,7 +26,13 @@ class items extends database
           $stmt = $db->prepare($query);
           $stmt->bindParam('input_name', $name, PDO::PARAM_STR);
           $stmt->bindParam('input_price', $price, PDO::PARAM_INT);
-          $stmt->execute();
+
+          if ($stmt->execute() === TRUE) {
+               $id = intval($db->lastInsertId());
+               return $id;
+          }
+
+          return 0;
      }
 
      // update
