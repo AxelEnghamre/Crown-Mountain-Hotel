@@ -13,7 +13,6 @@ class app
      private bool $isSignedIn;
      private string $userName;
      private string $userAccess;
-     private int $userId;
 
 
      function __construct()
@@ -42,13 +41,11 @@ class app
                     $this->isSignedIn = true;
                     $this->userName = $_SESSION['userName'];
                     $this->userAccess = $_SESSION['userAccess'];
-                    $this->userId = $_SESSION['userId'];
                }
           } else {
                $this->isSignedIn = false;
                $this->userName = "";
                $this->userAccess = "";
-               $this->userId = 0;
           }
      }
 
@@ -78,10 +75,6 @@ class app
      public function getUserAccess(): string
      {
           return $this->userAccess;
-     }
-     public function getUserId(): int
-     {
-          return $this->userId;
      }
 
      // retrieve error data
