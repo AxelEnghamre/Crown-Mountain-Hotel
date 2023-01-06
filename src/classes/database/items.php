@@ -60,7 +60,7 @@ class items extends database
      }
 
      // get all items
-     public function getAll(): array
+     public function getAll(): array | bool
      {
           $db = $this->connect();
 
@@ -76,11 +76,11 @@ class items extends database
                return $response;
           }
 
-          return [];
+          return false;
      }
 
      // get an item
-     public function get(int $id): array
+     public function get(int $id): array | bool
      {
           $db = $this->connect();
 
@@ -97,7 +97,7 @@ class items extends database
                return $response;
           }
 
-          return [];
+          return false;
      }
 
      public function setup(): void
