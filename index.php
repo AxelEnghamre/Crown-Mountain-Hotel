@@ -82,9 +82,9 @@ $items = $tableItems->getAll();
 <body>
      <?php
      transferCodeForm($items);
-     echo $bugetCalendar->draw('2023-01-01');
-     echo $standardCalendar->draw('2023-01-01');
-     echo $luxuryCalendar->draw('2023-01-01');
+     echo $bugetCalendar->draw('2023-01-01', 'grey');
+     echo $standardCalendar->draw('2023-01-01', 'grey');
+     echo $luxuryCalendar->draw('2023-01-01', 'grey');
      ?>
 </body>
 

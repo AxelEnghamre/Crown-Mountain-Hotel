@@ -17,6 +17,11 @@ $tableItems = new items;
 $tableOrders = new orders;
 $tableOrdersItems = new ordersItems;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+
+$client = new Client();
+
 // $tableBookings->setup();
 // $tableItems->setup();
 // $tableOrders->setup();
@@ -48,7 +53,7 @@ if (isset($_POST['checkIn'], $_POST['checkOut'], $_POST['transferCode'], $_POST[
 
      // compare dates chronologically
      if ($checkInDateTime > $checkOutDateTime) {
-          echo json_encode(['error' => 'check out can not be before check in']);
+          echo json_encode(['error' => 'departure date can not be before arrival date']);
           exit;
      }
 
@@ -108,6 +113,7 @@ if (isset($_POST['checkIn'], $_POST['checkOut'], $_POST['transferCode'], $_POST[
 
      $itemsPrice = 0;
      $amountOfItems = 0;
+     $features = [];
      // if there are items
      if (is_array($items)) {
           $amountOfItems = count($items);
@@ -121,6 +127,11 @@ if (isset($_POST['checkIn'], $_POST['checkOut'], $_POST['transferCode'], $_POST[
                     exit;
                }
 
+               array_push($features, [
+                    'feature' => $storedItem['name'],
+                    'cost' => $storedItem['price']
+               ]);
+
                $itemsPrice += $storedItem['price'];
           }
      }
@@ -133,6 +144,53 @@ if (isset($_POST['checkIn'], $_POST['checkOut'], $_POST['transferCode'], $_POST[
 
      // net price
      $netPrice = $grossPrice - $discount;
+
+
+     try {
+          $response = $client->request('POST', 'https://www.yrgopelago.se/centralbank/transferCode', [
+               'form_params' => [
+                    'transferCode' => $transferCode,
+                    'totalCost' => $netPrice
+               ],
+          ]);
+     } catch (ClientException $e) {
+          echo json_encode(['error' => 'server error']);
+          exit;
+     }
+
+     $canPay = false;
+     if ($response->getBody()) {
+          $data = json_decode($response->getBody()->getContents());
+
+          if (!property_exists($data, 'error')) {
+               if ($data->amount >= $netPrice) {
+                    $canPay = true;
+               } else {
+                    echo json_encode(['error' => 'not enough money on the transfer code']);
+                    exit;
+               }
+          } else {
+               echo json_encode(['error' => $data->error]);
+               exit;
+          }
+     } else {
+          echo json_encode(['error' => 'could not verlify transfer code']);
+          exit;
+     }
+
+     if ($canPay) {
+          try {
+               $response = $client->request('POST', 'https://www.yrgopelago.se/centralbank/deposit', [
+                    'form_params' => [
+                         'user' => $_ENV['USER_NAME'],
+                         'transferCode' => $transferCode
+                    ],
+               ]);
+          } catch (ClientException $e) {
+               echo json_encode(['error' => 'server error']);
+               exit;
+          }
+     }
 
      // add the order
      $orderId = $tableOrders->create($userName, $transferCode, $grossPrice, $discount, $netPrice);
@@ -149,7 +207,18 @@ if (isset($_POST['checkIn'], $_POST['checkOut'], $_POST['transferCode'], $_POST[
           }
      }
 
-     echo json_encode(['status' => 200]);
+
+
+     echo json_encode([
+          'island' => $_ENV['ISLAND_NAME'],
+          'hotel' => $_ENV['HOTEL_NAME'],
+          'arrival_date' => $checkIn,
+          'departure_date' => $checkOut,
+          'total_cost' => $netPrice,
+          'stars' => $_ENV['STARS'],
+          'features' => $features,
+          'additional_info' => "Thank you for staying at $_ENV[HOTEL_NAME]"
+     ]);
      exit;
 } else {
      echo json_encode(['error' => 'missing data']);
