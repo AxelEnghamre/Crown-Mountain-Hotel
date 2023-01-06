@@ -5,6 +5,7 @@ declare(strict_types=1);
 require_once(__DIR__ . '/src/classes/app.php');
 require_once(__DIR__ . '/src/classes/database/items.php');
 require_once(__DIR__ . '/src/classes/database/bookings.php');
+require_once(__DIR__ . '/src/components/transferCodeForm.php');
 
 $app = new app;
 $tableItems = new items;
@@ -12,18 +13,55 @@ $tableBookings = new bookings;
 
 use benhall14\phpCalendar\Calendar as Calendar;
 
+// buget calendar
 $bugetBookings = $tableBookings->allRoomBookings('buget');
 
 $bugetCalendar = new Calendar;
 $bugetCalendar->stylesheet();
 $bugetCalendar->useMondayStartingDate();
-foreach ($bugetBookings as $booking) {
-     $bugetCalendar->addEvent(
-          $booking['check_in'],
-          $booking['check_out'],
-          '',
-          true
-     );
+if ($bugetBookings != false) {
+     foreach ($bugetBookings as $booking) {
+          $bugetCalendar->addEvent(
+               $booking['check_in'],
+               $booking['check_out'],
+               '',
+               true
+          );
+     }
+}
+
+// standard calendar
+$standardBookings = $tableBookings->allRoomBookings('standard');
+
+$standardCalendar = new Calendar;
+$standardCalendar->stylesheet();
+$standardCalendar->useMondayStartingDate();
+if ($standardBookings != false) {
+     foreach ($standardBookings as $booking) {
+          $standardCalendar->addEvent(
+               $booking['check_in'],
+               $booking['check_out'],
+               '',
+               true
+          );
+     }
+}
+
+// luxury calendar
+$luxuryBookings = $tableBookings->allRoomBookings('luxury');
+
+$luxuryCalendar = new Calendar;
+$luxuryCalendar->stylesheet();
+$luxuryCalendar->useMondayStartingDate();
+if ($luxuryBookings != false) {
+     foreach ($luxuryBookings as $booking) {
+          $luxuryCalendar->addEvent(
+               $booking['check_in'],
+               $booking['check_out'],
+               '',
+               true
+          );
+     }
 }
 
 
@@ -42,28 +80,11 @@ $items = $tableItems->getAll();
 </head>
 
 <body>
-     <form action="/api/bookings/" method="post">
-          <input type="text" name="userName" id="userName">
-          <input type="text" name="transferCode" id="transferCode">
-          <input type="date" name="checkIn" id="checkIn" min="2023-01-01" max="2023-01-31">
-          <input type="date" name="checkOut" id="checkOut" min="2023-01-01" max="2023-01-31">
-          <select name="room" id="room">
-               <option value="buget">buget <?= $_ENV['BUGET_ROOM_PRICE'] ?>$</option>
-               <option value="standard">standard <?= $_ENV['STANDARD_ROOM_PRICE'] ?>$</option>
-               <option value="luxury">luxury <?= $_ENV['LUXURY_ROOM_PRICE'] ?>$</option>
-          </select>
-
-          <?php
-          foreach ($items as $item) {
-               echo "<input type='checkbox' name='items[]' id='$item[name]' value='$item[id]'>";
-               echo "<label for='$item[name]'>$item[name] $item[price]$</label>";
-          }
-          ?>
-          <input type="submit" value="Make a reservation">
-     </form>
-
      <?php
+     transferCodeForm($items);
      echo $bugetCalendar->draw('2023-01-01');
+     echo $standardCalendar->draw('2023-01-01');
+     echo $luxuryCalendar->draw('2023-01-01');
      ?>
 </body>
 
