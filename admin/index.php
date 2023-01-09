@@ -14,13 +14,17 @@ if (!$app->getIsSignedIn()) {
 
 require_once(__DIR__ . '/../src/classes/database/bookings.php');
 require_once(__DIR__ . '/../src/classes/database/orders.php');
+require_once(__DIR__ . '/../src/classes/database/ordersItems.php');
+require_once(__DIR__ . '/../src/classes/database/items.php');
 $tableBookings = new bookings;
 $tableOrders = new orders;
+$tableOrdersItems = new ordersItems;
+$tableItems = new items;
 
 $bugetBooking = $tableBookings->allRoomBookings('buget');
 $standardBooking = $tableBookings->allRoomBookings('standard');
 $luxuryBooking = $tableBookings->allRoomBookings('luxury');
-
+$allOrders = $tableOrders->getAll();
 ?>
 
 <!DOCTYPE html>
@@ -127,6 +131,43 @@ $luxuryBooking = $tableBookings->allRoomBookings('luxury');
           } else {
                echo "No luxury bookings";
           }
+          ?>
+     </ul>
+
+     <h2>orders</h2>
+     <ul>
+          <?php
+          if ($allOrders)
+               foreach ($allOrders as $order) {
+                    $orderItems = $tableOrdersItems->allInOrder(intval($order['id']));
+          ?>
+               <li>
+                    <h3><?= $order['id'] ?></h3>
+                    <form action="/api/orders/update" method="post">
+                         <input type="text" name="userName" id="userName" value=<?= $order['user_name'] ?>>
+                         <input type="text" name="transferCode" id="transferCode" value=<?= $order['transfer_code'] ?>>
+                         <input type="number" name="grossPrice" id="grossPrice" value=<?= $order['gross_price'] ?>>
+                         <input type="number" name="discount" id="discount" value=<?= $order['discount'] ?>>
+                         <input type="number" name="netPrice" id="netPrice" value=<?= $order['net_price'] ?>>
+                         <input type="submit" value="update">
+                    </form>
+
+                    <?php
+                    if ($orderItems)
+                         foreach ($orderItems as $orderItem) {
+                              $item = $tableItems->get($orderItem['item_id']);
+                              echo "$item[name] $item[price]$<br>";
+                         }
+
+                    ?>
+
+                    <form action="" method="post">
+                         <input type="hidden" name="orderId">
+                         <input type="submit" value="delete">
+                    </form>
+               </li>
+          <?php
+               }
           ?>
      </ul>
 </body>
