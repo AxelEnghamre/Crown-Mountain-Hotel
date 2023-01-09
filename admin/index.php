@@ -37,30 +37,98 @@ $luxuryBooking = $tableBookings->allRoomBookings('luxury');
 <body>
      <a href="/api/admin/logout/">logout</a>
 
-     <?php
-     if ($bugetBooking) {
-          foreach ($bugetBooking as $booking) {
-               $order = $tableOrders->get($booking['order_id']);
-     ?>
-               <li>
-                    <h3><?= $order['user_name'] ?></h3>
-                    <form action="" method="post">
-                         <input type="date" name="checkIn" id="checkIn" value=<?= $booking['check_in'] ?>>
-                         <input type="date" name="checkOut" id="checkOut" value=<?= $booking['check_out'] ?>>
-                         <input type="submit" value="update">
-                    </form>
+     <h2>buget bookings</h2>
+     <ul>
+          <?php
+          if ($bugetBooking) {
+               foreach ($bugetBooking as $booking) {
+                    $order = $tableOrders->get($booking['order_id']);
+          ?>
+                    <li>
+                         <h3><?= $order['user_name'] ?></h3>
+                         <form action="/api/bookings/update" method="post">
+                              <input type="hidden" name="bookingId" value=<?= $booking['id'] ?>>
+                              <input type="hidden" name="room" value=<?= $booking['room'] ?>>
+                              <input type="date" name="checkIn" id="checkIn" value=<?= $booking['check_in'] ?>>
+                              <input type="date" name="checkOut" id="checkOut" value=<?= $booking['check_out'] ?>>
+                              <input type="number" name="orderId" id="orderId" value=<?= $booking['order_id'] ?>>
+                              <input type="submit" value="update">
+                         </form>
 
-                    <form action="/api/bookings/delete" method="post">
-                         <input type="hidden" name="booking_id" value=<?= $booking['id'] ?>>
-                         <input type="submit" value="delete">
-                    </form>
-               </li>
-     <?php
+                         <form action="/api/bookings/delete" method="post">
+                              <input type="hidden" name="bookingId" value=<?= $booking['id'] ?>>
+                              <input type="submit" value="delete">
+                         </form>
+                    </li>
+          <?php
+               }
+          } else {
+               echo "No buget bookings";
           }
-     } else {
-          echo "No buget bookings";
-     }
-     ?>
+          ?>
+     </ul>
+
+     <h2>standard bookings</h2>
+     <ul>
+          <?php
+          if ($standardBooking) {
+               foreach ($standardBooking as $booking) {
+                    $order = $tableOrders->get($booking['order_id']);
+          ?>
+                    <li>
+                         <h3><?= $order['user_name'] ?></h3>
+                         <form action="/api/bookings/update" method="post">
+                              <input type="hidden" name="bookingId" value=<?= $booking['id'] ?>>
+                              <input type="hidden" name="room" value=<?= $booking['room'] ?>>
+                              <input type="date" name="checkIn" id="checkIn" value=<?= $booking['check_in'] ?>>
+                              <input type="date" name="checkOut" id="checkOut" value=<?= $booking['check_out'] ?>>
+                              <input type="number" name="orderId" id="orderId" value=<?= $booking['order_id'] ?>>
+                              <input type="submit" value="update">
+                         </form>
+
+                         <form action="/api/bookings/delete" method="post">
+                              <input type="hidden" name="bookingId" value=<?= $booking['id'] ?>>
+                              <input type="submit" value="delete">
+                         </form>
+                    </li>
+          <?php
+               }
+          } else {
+               echo "No standard bookings";
+          }
+          ?>
+     </ul>
+
+     <h2>luxury bookings</h2>
+     <ul>
+          <?php
+          if ($luxuryBooking) {
+               foreach ($luxuryBooking as $booking) {
+                    $order = $tableOrders->get($booking['order_id']);
+          ?>
+                    <li>
+                         <h3><?= $order['user_name'] ?></h3>
+                         <form action="/api/bookings/update" method="post">
+                              <input type="hidden" name="bookingId" value=<?= $booking['id'] ?>>
+                              <input type="hidden" name="room" value=<?= $booking['room'] ?>>
+                              <input type="date" name="checkIn" id="checkIn" value=<?= $booking['check_in'] ?>>
+                              <input type="date" name="checkOut" id="checkOut" value=<?= $booking['check_out'] ?>>
+                              <input type="number" name="orderId" id="orderId" value=<?= $booking['order_id'] ?>>
+                              <input type="submit" value="update">
+                         </form>
+
+                         <form action="/api/bookings/delete" method="post">
+                              <input type="hidden" name="bookingId" value=<?= $booking['id'] ?>>
+                              <input type="submit" value="delete">
+                         </form>
+                    </li>
+          <?php
+               }
+          } else {
+               echo "No luxury bookings";
+          }
+          ?>
+     </ul>
 </body>
 
 </html>
