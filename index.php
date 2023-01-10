@@ -77,15 +77,37 @@ $items = $tableItems->getAll();
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title><?= $_ENV['HOTEL_NAME'] ?></title>
+     <link rel="stylesheet" href="style/main.css">
 </head>
 
 <body>
-     <?php
-     transferCodeForm($items);
-     echo $bugetCalendar->draw('2023-01-01', 'grey');
-     echo $standardCalendar->draw('2023-01-01', 'grey');
-     echo $luxuryCalendar->draw('2023-01-01', 'grey');
-     ?>
+     <header>
+          <h1><?= $_ENV['HOTEL_NAME'] ?></h1>
+          <p>The exclusive hotel located on the island of <?= $_ENV['ISLAND_NAME'] ?></p>
+     </header>
+     <main>
+          <section>
+               <article>
+                    <h2>buget</h2>
+               </article>
+               <?= $bugetCalendar->draw('2023-01-01', 'grey') ?>
+          </section>
+          <section>
+               <article>
+                    <h2>standard</h2>
+               </article>
+               <?= $standardCalendar->draw('2023-01-01', 'grey') ?>
+          </section>
+          <section>
+               <article>
+                    <h2>luxury</h2>
+               </article>
+               <?= $luxuryCalendar->draw('2023-01-01', 'grey') ?>
+          </section>
+          <?php
+          transferCodeForm($items);
+          ?>
+     </main>
 </body>
 
 </html>

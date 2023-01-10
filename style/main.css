@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+  max-width: 50rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: auto;
+  margin: auto auto;
+}
+
+main section {
+  display: grid;
+  grid-template-columns: 30rem 1fr;
+  grid-template-rows: 1fr;
+}
+
+@media only screen and (max-width: 800px) {
+  main section {
+    grid-template-columns: 1fr;
+  }
+}
+
+h2 {
+  font-size: 2rem;
+}
