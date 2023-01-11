@@ -1,12 +1,10 @@
-WHY NOT A GIF HERE? TO SET THE MODE.
+# Altis
 
-# Island name
+the isaland from Arma 3
 
-Some text about your lovely island
+# Crown Mountain Hotel
 
-# Hotel name
-
-Why not add some info about the hotel of your dreams?
+The exclusive hotel located on the island of Altis
 
 # Instructions
 
