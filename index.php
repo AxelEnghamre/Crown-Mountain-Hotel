@@ -89,18 +89,25 @@ $items = $tableItems->getAll();
           <section>
                <article>
                     <h2>buget</h2>
+                    <p>If you want to stay in a room with just a bed and nothing more.</p>
+                    <p>The buget room is the room for you.</p>
                </article>
                <?= $bugetCalendar->draw('2023-01-01', 'grey') ?>
           </section>
           <section>
                <article>
                     <h2>standard</h2>
+                    <p>If you are on <?= $_ENV['ISLAND_NAME'] ?> to enjoy our island.</p>
+                    <p>Or if you just want a nice hotel to relax in.</p>
+                    <p>The standrad room is the room for you</p>
                </article>
                <?= $standardCalendar->draw('2023-01-01', 'grey') ?>
           </section>
           <section>
                <article>
                     <h2>luxury</h2>
+                    <p>If you want a staying to remember.</p>
+                    <p>The luxury room is the room for you.</p>
                </article>
                <?= $luxuryCalendar->draw('2023-01-01', 'grey') ?>
           </section>
