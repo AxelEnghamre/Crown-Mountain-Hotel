@@ -24,6 +24,7 @@ function transferCodeForm(array | bool $items)
                <option data-price=<?= $_ENV['LUXURY_ROOM_PRICE'] ?> value="luxury">luxury <?= $_ENV['LUXURY_ROOM_PRICE'] ?>$</option>
           </select>
 
+          <p>for every feature you add you get 1$</p>
           <ul>
                <?php
                if (is_array($items)) {
@@ -36,9 +37,9 @@ function transferCodeForm(array | bool $items)
                }
                ?>
           </ul>
-          <div>
+          <div class="totalCost">
                <p>total cost</p>
-               0$
+               <span>0</span>$
           </div>
           <input type="submit" value="Make a reservation">
      </form>

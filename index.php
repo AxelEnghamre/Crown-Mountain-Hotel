@@ -79,6 +79,7 @@ $items = $tableItems->getAll();
      <title><?= $_ENV['HOTEL_NAME'] ?></title>
      <link rel="stylesheet" href="style/main.css">
      <link rel="stylesheet" href="style/transferCodeForm.css">
+     <script src="script/totalCost.js" defer></script>
 </head>
 
 <body>
