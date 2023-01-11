@@ -163,10 +163,10 @@ if (isset($_POST['checkIn'], $_POST['checkOut'], $_POST['transferCode'], $_POST[
           $data = json_decode($response->getBody()->getContents());
 
           if (!property_exists($data, 'error')) {
-               if ($data->amount >= $netPrice) {
+               if ($data->amount == $netPrice) {
                     $canPay = true;
                } else {
-                    echo json_encode(['error' => 'not enough money on the transfer code']);
+                    echo json_encode(['error' => 'not rigth amount of money on the transfer code']);
                     exit;
                }
           } else {
