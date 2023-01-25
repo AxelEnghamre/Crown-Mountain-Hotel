@@ -100,6 +100,8 @@ foreach ($logbookData as $logbookEntry) {
                         <?= '*' ?>
                     <?php endfor ?>
                 </p>
+                <p>Arrival: <?= $logbookEntry['arrival_date'] ?></p>
+                <p>Departure: <?= $logbookEntry['departure_date'] ?></p>
                 <h3>Features</h3>
                 <div>
                     <ul>
