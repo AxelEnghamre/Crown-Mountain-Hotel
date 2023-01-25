@@ -1,0 +1,60 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h2,
+h1,
+h3 {
+  text-align: center;
+}
+
+h1,
+h2 {
+  font-size: 3rem;
+}
+
+ul {
+  width: 8rem;
+}
+
+article {
+  text-align: center;
+}
+
+.hotel-revenue-card-container div {
+  margin: 1rem;
+  padding: 1rem;
+  width: 20rem;
+  background-color: rgb(133, 144, 151);
+}
+
+.hotel-revenue-container {
+  text-align: center;
+  width: 100%;
+}
+
+.logbook-container,
+.hotel-revenue-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.logbook-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: rgb(133, 144, 151);
+
+  width: 20rem;
+  max-height: 40rem;
+  padding: 1rem;
+  margin: 1rem;
+}

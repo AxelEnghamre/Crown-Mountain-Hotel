@@ -7,7 +7,7 @@
       "departure_date": "2023-01-05",
       "total_cost": 3,
       "stars": "2",
-      "features": null,
+      "features": [],
       "additional_info": "Thank you for choosing Overwater Resort."
     },
     {
@@ -16,8 +16,9 @@
       "arrival_date": "2023-01-10",
       "departure_date": "2023-01-15",
       "total_cost": "5",
+      "features": [],
       "stars": "1",
-      "addtional_info": "Thank you for staying at the Yellow Duck!"
+      "additional_info": "Thank you for staying at the Yellow Duck!"
     },
     {
       "island": "Isle of Sg\u00e0il",
@@ -36,13 +37,13 @@
       "departure_date": "2023-01-8",
       "total_cost": "26.6",
       "stars": 4,
-      "features": {
-        "1": { "name": "Megafridge", "cost": "2" },
-        "2": { "name": "Afternoon Breakfast", "cost": "2" },
-        "3": { "name": "Midnight Lunch", "cost": "2" },
-        "4": { "name": "Soy Dinner", "cost": "2" }
-      },
-      "addtional_info": "Thanks for staying at Itsakon Hotel"
+      "features": [
+        { "name": "Megafridge", "cost": "2" },
+        { "name": "Afternoon Breakfast", "cost": "2" },
+        { "name": "Midnight Lunch", "cost": "2" },
+        { "name": "Soy Dinner", "cost": "2" }
+      ],
+      "additional_info": "Thanks for staying at Itsakon Hotel"
     },
     {
       "island": "Glacier Island",
@@ -52,11 +53,9 @@
       "total_cost": 22,
       "stars": 5,
       "features": [
-        [
-          { "name": "Ski Rental", "cost": 2 },
-          { "name": "Minibar with snacks", "cost": 3 },
-          { "name": "Hot tub", "cost": 5 }
-        ]
+        { "name": "Ski Rental", "cost": 2 },
+        { "name": "Minibar with snacks", "cost": 3 },
+        { "name": "Hot tub", "cost": 5 }
       ],
       "additional_info": "You saved $8 with discounts"
     },
