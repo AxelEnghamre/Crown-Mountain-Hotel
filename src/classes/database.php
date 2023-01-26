@@ -22,4 +22,17 @@ class database
           }
           return $db;
      }
+
+     public function fetch(string $tabel): array
+     {
+          try {
+               $db = $this->connect();
+               $stmt = $db->query('SELECT * FROM ' . $tabel);
+               return $stmt->fetchAll(PDO::FETCH_ASSOC);
+          } catch (Exception $e) {
+               throw new Exception(
+                    sprintf("fetch function failed, couldn't find " . $tabel)
+               );
+          }
+     }
 }
